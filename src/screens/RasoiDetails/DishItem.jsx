@@ -12,30 +12,36 @@ function DishItem({ dish }) {
 
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => {
-    console.log(state.basket);
-  });
-
-  function handleSub() {
-    if (dishCount === 0) {
-      setDishCount(0);
-    } else {
-      setDishCount(dishCount - 1);
-    }
-  }
-
   function handleAdd() {
-    setDishCount(dishCount + 1);
+    setDishCount((prevDishCount) => prevDishCount + 1);
 
     const item = {
       dishId: dish.foodId,
       dishName: dish.dishName,
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
-      dishCount,
+      dishCounts: dishCount,
     };
 
     dispatch(addDish(item));
+  }
+
+  function handleSub() {
+    if (dishCount === 0) {
+      setDishCount(0);
+    } else {
+      setDishCount((prevDishCount) => prevDishCount - 1);
+
+      const item = {
+        dishId: dish.foodId,
+        dishName: dish.dishName,
+        dishDesc: dish.dishDesc,
+        dishPrice: dish.dishPrice,
+        dishCounts: dishCount,
+      };
+
+      dispatch(addDish(item));
+    }
   }
 
   return (
