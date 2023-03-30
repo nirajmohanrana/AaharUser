@@ -1,15 +1,12 @@
-import { View } from "react-native";
+import { View, FlatList } from "react-native";
 
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { db } from "../../../firebaseConfig";
-import { FlatList } from "react-native";
-import { Text } from "react-native";
-import { Image } from "react-native";
 import RasoiCard from "./RasoiCard";
 
-function RasoiList() {
+function RasoiList({ navigation }) {
   const [rasoiUsers, setRasoiUsers] = useState(null);
 
   useEffect(() => {
@@ -31,8 +28,11 @@ function RasoiList() {
   return (
     <View>
       <FlatList
+        style={{ padding: 15 }}
         data={rasoiUsers}
-        renderItem={({ item }) => <RasoiCard rasoi={item} />}
+        renderItem={({ item }) => (
+          <RasoiCard rasoi={item} navigation={navigation} />
+        )}
         keyExtractor={(rasoi) => rasoi.id}
       />
     </View>
