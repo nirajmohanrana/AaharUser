@@ -2,9 +2,13 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "@expo/vector-icons/Ionicons";
 
-function RasoiCard({ rasoi }) {
+function RasoiCard({ rasoi, navigation }) {
+  function onPress() {
+    navigation.navigate("Rasoi Details", { rasoi });
+  }
+
   return (
-    <Pressable style={styles.rasoiContainer}>
+    <Pressable style={styles.rasoiContainer} onPress={onPress}>
       <Image
         source={require("../../../assets/restaurant1.jpeg")}
         style={styles.image}
@@ -44,6 +48,7 @@ const styles = StyleSheet.create({
   rasoiContainer: {
     width: "100%",
     height: 200,
+    marginHorizontal: "auto",
     borderRadius: 15,
     marginVertical: 10,
     position: "relative",
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200,
+    height: 240,
     aspectRatio: 5 / 3,
   },
   logo: {

@@ -22,6 +22,7 @@ export default StyleSheet.create({
     margin: 15,
     position: "absolute",
     bottom: 0,
+    borderRadius: 15,
   },
   title: {
     fontSize: 25,

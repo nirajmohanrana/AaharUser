@@ -1,56 +1,38 @@
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import { useEffect, useState } from "react";
 
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 
 import RasoiHeader from "./RasoiHeader";
 import DishItem from "./DishItem";
 
-function RasoiDetails() {
-  const [rasoi, setRasoi] = useState(null);
+function RasoiDetails({ route, navigation }) {
   const [food, setFood] = useState(null);
 
   useEffect(() => {
-    const q = query(collection(db, "rasoi-users"));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const usersData = [];
-
-      querySnapshot.forEach((doc) => {
-        usersData.push({ id: doc.id, ...doc.data() });
-      });
-
-      setRasoi(usersData[0]);
-    });
-
-    const q1 = query(collection(db, "food-items"));
-
-    const unsubscribe1 = onSnapshot(q1, (querySnapshot) => {
-      const foodsData = [];
-
-      querySnapshot.forEach((doc) => {
-        foodsData.push({ id: doc.id, ...doc.data() });
-      });
-
-      setFood(foodsData[0].foods);
-    });
+    const unsubscribe = onSnapshot(
+      doc(db, "food-items", route.params.rasoi.id),
+      (doc) => {
+        const docData = doc.data();
+        setFood(docData.foods);
+      }
+    );
 
     return () => {
       unsubscribe();
-      unsubscribe1();
     };
-  }, []);
-
-  console.log(food);
+  }, [route.params.rasoi]);
 
   return (
     <View>
       <FlatList
-        ListHeaderComponent={() => <RasoiHeader rasoi={rasoi} />}
+        ListHeaderComponent={() => <RasoiHeader rasoi={route.params.rasoi} />}
         data={food}
         renderItem={({ item }) => <DishItem dish={item} />}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => {
+          item.foodId;
+        }}
       />
     </View>
   );

@@ -1,7 +1,43 @@
+import { useState } from "react";
+
+import { Feather } from "@expo/vector-icons";
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+
+import { addDish } from "../../store/slices/basketSlice";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function DishItem({ dish }) {
+  const [dishCount, setDishCount] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const data = useSelector((state) => {
+    console.log(state.basket);
+  });
+
+  function handleSub() {
+    if (dishCount === 0) {
+      setDishCount(0);
+    } else {
+      setDishCount(dishCount - 1);
+    }
+  }
+
+  function handleAdd() {
+    setDishCount(dishCount + 1);
+
+    const item = {
+      dishId: dish.foodId,
+      dishName: dish.dishName,
+      dishDesc: dish.dishDesc,
+      dishPrice: dish.dishPrice,
+      dishCount,
+    };
+
+    dispatch(addDish(item));
+  }
+
   return (
     <Pressable style={styles.container}>
       {dish && <Image source={{ uri: dish.dishImgUrl }} style={styles.image} />}
@@ -12,8 +48,31 @@ function DishItem({ dish }) {
         </Text>
         <Text style={styles.price}>₹{dish ? dish.dishPrice : ""}</Text>
       </View>
-      <View style={styles.add}>
-        <MaterialIcons name="add-circle-outline" size={24} color="#f97316" />
+      <View style={styles.addSubContainer}>
+        <View style={styles.addSub}>
+          <Pressable
+            onPress={handleSub}
+            style={{ borderRightWidth: 1, borderColor: "#f97316" }}
+          >
+            <Feather name="minus" size={22} color="#f97316" />
+          </Pressable>
+          <View
+            style={{
+              width: 20,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text>{dishCount}</Text>
+          </View>
+          <Pressable
+            onPress={handleAdd}
+            style={{ borderLeftWidth: 1, borderColor: "#f97316" }}
+          >
+            <Feather name="plus" size={22} color="#f97316" />
+          </Pressable>
+        </View>
       </View>
     </Pressable>
   );
@@ -49,8 +108,17 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#f97316",
   },
-  add: {
-    flexDirection: "column",
+  addSubContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addSub: {
+    borderWidth: 1,
+    borderColor: "#f97316",
+    borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
   },
 });
