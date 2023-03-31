@@ -6,8 +6,8 @@ import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 import { addDish, removeDish } from "../../store/slices/basketSlice";
 import { useDispatch } from "react-redux";
 
-function DishItem({ dish }) {
-  const [dishCount, setDishCount] = useState(0);
+function BasketItem({ dish }) {
+  const [dishCount, setDishCount] = useState(dish.dishCounts);
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ function DishItem({ dish }) {
     const item = {
       dishId: dish.foodId,
       dishName: dish.dishName,
-      dishImgUrl: dish.dishImgUrl,
+      dishImgUrL: dish.dishImgUrl,
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
       dishCounts: dishCount + 1,
@@ -33,7 +33,7 @@ function DishItem({ dish }) {
       const item = {
         dishId: dish.foodId,
         dishName: dish.dishName,
-        dishImgUrl: dish.dishImgUrl,
+        dishImgUrL: dish.dishImgUrl,
         dishDesc: dish.dishDesc,
         dishPrice: dish.dishPrice,
         dishCounts: dishCount - 1,
@@ -128,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DishItem;
+export default BasketItem;

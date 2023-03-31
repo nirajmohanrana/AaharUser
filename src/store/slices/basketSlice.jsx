@@ -13,8 +13,6 @@ const basketSlice = createSlice({
       } else {
         state.push(item);
       }
-
-      console.log("17 Add BasketSlice", state);
     },
 
     removeDish(state, action) {

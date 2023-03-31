@@ -31,7 +31,7 @@ function RasoiDetails({ route, navigation }) {
         data={food}
         renderItem={({ item }) => <DishItem dish={item} />}
         keyExtractor={(item) => {
-          item.foodId;
+          item.id;
         }}
       />
     </View>
