@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 
-import { addDish } from "../../store/slices/basketSlice";
+import { addDish, removeDish } from "../../store/slices/basketSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -13,39 +13,37 @@ function DishItem({ dish }) {
   const dispatch = useDispatch();
 
   function handleAdd() {
-    setDishCount((prevDishCount) => prevDishCount + 1);
+    setDishCount(dishCount + 1);
 
     const item = {
       dishId: dish.foodId,
       dishName: dish.dishName,
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
-      dishCounts: dishCount,
+      dishCounts: dishCount + 1,
     };
 
     dispatch(addDish(item));
   }
 
   function handleSub() {
-    if (dishCount === 0) {
-      setDishCount(0);
-    } else {
-      setDishCount((prevDishCount) => prevDishCount - 1);
+    if (dishCount > 0) {
+      setDishCount(dishCount - 1);
 
       const item = {
         dishId: dish.foodId,
         dishName: dish.dishName,
         dishDesc: dish.dishDesc,
         dishPrice: dish.dishPrice,
-        dishCounts: dishCount,
+        dishCounts: dishCount - 1,
       };
 
-      dispatch(addDish(item));
+      dispatch(removeDish(item));
     }
   }
 
   return (
-    <Pressable style={styles.container}>
+    <View style={styles.container}>
       {dish && <Image source={{ uri: dish.dishImgUrl }} style={styles.image} />}
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{dish ? dish.dishName : ""}</Text>
@@ -80,7 +78,7 @@ function DishItem({ dish }) {
           </Pressable>
         </View>
       </View>
-    </Pressable>
+    </View>
   );
 }
 

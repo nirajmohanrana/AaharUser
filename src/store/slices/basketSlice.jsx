@@ -6,27 +6,30 @@ const basketSlice = createSlice({
   reducers: {
     addDish(state, action) {
       const item = action.payload;
-      const existingItem = state.find((i) => i.dishId === item.dishId);
+      const index = state.findIndex((dish) => dish.dishId === item.dishId);
 
-      if (existingItem) {
-        existingItem.dishCounts = item.dishCounts;
-        if (existingItem.dishCounts === 0) {
-          const index = state.findIndex(
-            (i) => i.dishId === existingItem.dishId
-          );
-          state.splice(index, 1);
-        }
+      if (index !== -1) {
+        state[index].dishCounts++;
       } else {
         state.push(item);
       }
 
-      console.log("23 Add BasketSlice", state);
+      console.log("17 Add BasketSlice", state);
     },
 
     removeDish(state, action) {
       const item = action.payload;
-      const index = state.findIndex((i) => i.dishId === item.dishId);
-      state.splice(index, 1);
+      const index = state.findIndex((dish) => dish.dishId === item.dishId);
+
+      if (index !== -1) {
+        if (state[index].dishCounts === 1) {
+          state.splice(index, 1);
+        } else {
+          state[index].dishCounts--;
+        }
+      }
+
+      console.log("32 Remove BasketSlice", state);
     },
 
     removeAllDish(state, action) {
@@ -36,4 +39,4 @@ const basketSlice = createSlice({
 });
 
 export default basketSlice.reducer;
-export const { addDish } = basketSlice.actions;
+export const { addDish, removeDish, removeAllDish } = basketSlice.actions;
