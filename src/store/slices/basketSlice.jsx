@@ -13,6 +13,8 @@ const basketSlice = createSlice({
       } else {
         state.push(item);
       }
+
+      console.log("17 Add BasketSlice", state);
     },
 
     removeDish(state, action) {
@@ -27,7 +29,7 @@ const basketSlice = createSlice({
         }
       }
 
-      console.log("32 Remove BasketSlice", state);
+      console.log("30 Remove BasketSlice", state);
     },
 
     removeAllDish(state, action) {

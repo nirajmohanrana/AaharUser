@@ -7,7 +7,7 @@ import { db } from "../../../firebaseConfig";
 import RasoiHeader from "./RasoiHeader";
 import DishItem from "./DishItem";
 
-function RasoiDetails({ route, navigation }) {
+function RasoiDetails({ route }) {
   const [food, setFood] = useState(null);
 
   useEffect(() => {
@@ -29,10 +29,10 @@ function RasoiDetails({ route, navigation }) {
       <FlatList
         ListHeaderComponent={() => <RasoiHeader rasoi={route.params.rasoi} />}
         data={food}
-        renderItem={({ item }) => <DishItem dish={item} />}
-        keyExtractor={(item) => {
-          item.id;
-        }}
+        renderItem={({ item }) => (
+          <DishItem dish={item} rasoiName={route.params.rasoi.rasoiName} />
+        )}
+        keyExtractor={(food) => food.foodId}
       />
     </View>
   );
