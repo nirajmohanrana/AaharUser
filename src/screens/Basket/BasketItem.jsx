@@ -17,7 +17,7 @@ function BasketItem({ dish }) {
     const item = {
       dishId: dish.foodId,
       dishName: dish.dishName,
-      dishImgUrL: dish.dishImgUrl,
+      dishImgUrl: dish.dishImgUrl,
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
       dishCounts: dishCount + 1,
@@ -33,7 +33,7 @@ function BasketItem({ dish }) {
       const item = {
         dishId: dish.foodId,
         dishName: dish.dishName,
-        dishImgUrL: dish.dishImgUrl,
+        dishImgUrl: dish.dishImgUrl,
         dishDesc: dish.dishDesc,
         dishPrice: dish.dishPrice,
         dishCounts: dishCount - 1,
@@ -47,11 +47,26 @@ function BasketItem({ dish }) {
     <View style={styles.container}>
       {dish && <Image source={{ uri: dish.dishImgUrl }} style={styles.image} />}
       <View style={{ flex: 1 }}>
-        <Text style={styles.name}>{dish ? dish.dishName : ""}</Text>
+        <Text style={styles.name}>{dish ? dish.dishName : "Dish Name"}</Text>
         <Text style={styles.description} numberOfLines={2}>
-          {dish ? dish.dishDesc : ""}
+          {dish ? dish.dishDesc : "Dish Description"}
         </Text>
-        <Text style={styles.price}>₹{dish ? dish.dishPrice : ""}</Text>
+        <Text style={styles.price}>
+          ₹{dish ? dish.dishPrice : "Dish Price"}
+        </Text>
+        <Text style={{ fontSize: 8, fontStyle: "italic", fontWeight: 900 }}>
+          from{" "}
+          <Text
+            style={{
+              color: "#f97316",
+              fontSize: 10,
+              fontStyle: "italic",
+              fontWeight: 900,
+            }}
+          >
+            {dish ? dish.rasoiName : "RasoiName"}
+          </Text>
+        </Text>
       </View>
       <View style={styles.addSubContainer}>
         <View style={styles.addSub}>
@@ -100,10 +115,11 @@ const styles = StyleSheet.create({
   },
   description: {
     color: "gray",
-    marginVertical: 5,
+    marginTop: 1,
   },
   price: {
     fontSize: 16,
+    fontWeight: 700,
   },
   image: {
     height: 75,

@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Feather } from "@expo/vector-icons";
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 
 import { addDish, removeDish } from "../../store/slices/basketSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-function DishItem({ dish }) {
+function DishItem({ dish, rasoiName }) {
   const [dishCount, setDishCount] = useState(0);
 
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ function DishItem({ dish }) {
       dishImgUrl: dish.dishImgUrl,
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
+      rasoiName: rasoiName,
       dishCounts: dishCount + 1,
     };
 
@@ -43,8 +44,19 @@ function DishItem({ dish }) {
     }
   }
 
+  const basketItems = useSelector((state) => state.basket);
+  useEffect(() => {
+    const basketItem = basketItems.find(
+      (item) => item.dishName === dish.dishName
+    );
+
+    if (basketItem) {
+      setDishCount(basketItem.dishCounts);
+    }
+  }, [basketItems, dish]);
+
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container}>
       {dish && <Image source={{ uri: dish.dishImgUrl }} style={styles.image} />}
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{dish ? dish.dishName : ""}</Text>
@@ -79,7 +91,7 @@ function DishItem({ dish }) {
           </Pressable>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
