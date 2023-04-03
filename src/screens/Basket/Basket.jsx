@@ -13,9 +13,8 @@ function Basket() {
       <FlatList
         data={basketItems}
         renderItem={({ item }) => <BasketItem dish={item} />}
-        keyExtractor={(basketItems) => {
-          console.log(basketItems);
-          basketItems.foodId;
+        keyExtractor={(item) => {
+          item.foodId;
         }}
       />
     </View>

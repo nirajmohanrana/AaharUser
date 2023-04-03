@@ -45,6 +45,7 @@ function DishItem({ dish, rasoiName }) {
   }
 
   const basketItems = useSelector((state) => state.basket);
+
   useEffect(() => {
     const basketItem = basketItems.find(
       (item) => item.dishName === dish.dishName
@@ -52,6 +53,7 @@ function DishItem({ dish, rasoiName }) {
 
     if (basketItem) {
       setDishCount(basketItem.dishCounts);
+      console.log(basketItem.dishCounts);
     }
   }, [basketItems, dish]);
 
