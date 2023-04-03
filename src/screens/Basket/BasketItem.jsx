@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Feather } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 
 import { addDish, removeDish } from "../../store/slices/basketSlice";
@@ -69,30 +69,10 @@ function BasketItem({ dish }) {
         </Text>
       </View>
       <View style={styles.addSubContainer}>
-        <View style={styles.addSub}>
-          <Pressable
-            onPress={handleSub}
-            style={{ borderRightWidth: 1, borderColor: "#f97316" }}
-          >
-            <Feather name="minus" size={22} color="#f97316" />
-          </Pressable>
-          <View
-            style={{
-              width: 20,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text>{dishCount}</Text>
-          </View>
-          <Pressable
-            onPress={handleAdd}
-            style={{ borderLeftWidth: 1, borderColor: "#f97316" }}
-          >
-            <Feather name="plus" size={22} color="#f97316" />
-          </Pressable>
-        </View>
+        <FontAwesome5 name="shopping-basket" size={16} color="#f97316" />
+        <Text style={{ fontSize: 18, fontWeight: 700, color: "#f97316" }}>
+          {dish.dishCounts}
+        </Text>
       </View>
     </View>
   );
@@ -133,14 +113,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  addSub: {
-    borderWidth: 1,
-    borderColor: "#f97316",
-    borderRadius: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    gap: 5,
+    marginRight: 4,
   },
 });
 

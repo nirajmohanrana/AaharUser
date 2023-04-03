@@ -14,7 +14,7 @@ const basketSlice = createSlice({
         state.push(item);
       }
 
-      console.warn("17 Add BasketSlice\n\n", state);
+      console.log("17 Add BasketSlice\n\n", state);
     },
 
     removeDish(state, action) {
@@ -29,7 +29,7 @@ const basketSlice = createSlice({
         }
       }
 
-      console.warn("32 Remove BasketSlice\n\n", state);
+      console.log("32 Remove BasketSlice\n\n", state);
     },
 
     removeAllDish(state, action) {

@@ -32,6 +32,7 @@ function RasoiDetails({ route }) {
         renderItem={({ item }) => (
           <DishItem dish={item} rasoiName={route.params.rasoi.rasoiName} />
         )}
+        ListFooterComponent={() => <View style={{ height: 100 }} />}
         keyExtractor={(food) => food.foodId}
       />
     </View>

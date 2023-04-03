@@ -8,8 +8,11 @@ import { Ionicons } from "@expo/vector-icons";
 import Profile from "../screens/Profile/Profile";
 import BasketBadge from "../components/BasketBadge";
 import Basket from "../screens/Basket/Basket";
+import { useState } from "react";
 
 function TabNavigators() {
+  const [bottomOffset, setBottomOffset] = useState(10);
+
   const Tab = createBottomTabNavigator();
 
   return (
@@ -68,7 +71,11 @@ function TabNavigators() {
     >
       <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="Home" component={HomeStack} />
-      <Tab.Screen name="Basket" component={Basket} />
+      <Tab.Screen
+        name="Basket"
+        component={Basket}
+        options={{ tabBarStyle: { display: "none" } }}
+      />
     </Tab.Navigator>
   );
 }

@@ -4,7 +4,7 @@ import RasoiDetails from "../screens/RasoiDetails/RasoiDetails";
 import RasoiList from "../screens/RasoiList/RasoiList";
 import Basket from "../screens/Basket/Basket";
 
-const HomeStack = () => {
+const HomeStack = (route) => {
   const Stack = createNativeStackNavigator();
 
   return (
