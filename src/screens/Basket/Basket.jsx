@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import BasketItem from "./BasketItem";
 import { useEffect, useState } from "react";
 
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 
 function Basket({ navigation }) {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -41,14 +41,19 @@ function Basket({ navigation }) {
             <FlatList
               data={basketItems}
               renderItem={({ item }) => <BasketItem dish={item} />}
-              keyExtractor={(index) => {
-                index;
-              }}
+              keyExtractor={(item) => item.dishId}
               ListFooterComponent={() => <View style={{ height: 100 }} />}
             />
           </>
         ) : (
-          ""
+          <View style={styles.emptyBasketCon}>
+            <Feather name="shopping-bag" size={125} color="black" />
+            <Text style={styles.emptyTitle}>Your Basket is Empty</Text>
+            <Text style={styles.emptySubitle}>
+              add food items from your favourite rasoi ghar
+            </Text>
+            <Text></Text>
+          </View>
         )}
       </View>
       <View style={styles.bottomBtns}>
@@ -65,7 +70,7 @@ function Basket({ navigation }) {
             styles.payBtn,
             { backgroundColor: basketItems.length === 0 ? "gray" : "#000" },
           ]}
-          disabled={basketItems.length === 0 ? false : true}
+          disabled={basketItems.length === 0 ? true : false}
         >
           <Text style={{ color: "#fff", fontWeight: 700, fontSize: 20 }}>
             Proceed To Pay
@@ -77,34 +82,3 @@ function Basket({ navigation }) {
 }
 
 export default Basket;
-
-const styles = StyleSheet.create({
-  totalCon: {
-    flexDirection: "row",
-    paddingHorizontal: 30,
-    paddingBottom: 5,
-    marginVertical: 10,
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    borderBottomWidth: 0.5,
-  },
-  bottomBtns: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    gap: 5,
-    paddingHorizontal: 20,
-  },
-  resIcon: {
-    backgroundColor: "#f97316",
-    padding: 10,
-    borderRadius: 1000,
-    elevation: 5,
-  },
-  payBtn: {
-    borderRadius: 30,
-    height: 50,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
