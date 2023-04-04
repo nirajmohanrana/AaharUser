@@ -1,0 +1,95 @@
+import { StyleSheet } from "react-native";
+
+export default StyleSheet.create({
+  profileHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    width: "100%",
+    borderBottomWidth: 0.2,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: "#fff",
+    elevation: 5,
+  },
+  profileImage: {
+    width: 85,
+    height: 85,
+  },
+  profileDetails: {
+    width: "60%",
+  },
+  currentOrder: {
+    borderWidth: 0.5,
+    borderColor: "#f97316",
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    elevation: 4,
+  },
+  currentOrderHeader: {
+    borderBottomWidth: 0.2,
+    borderColor: "#f97316",
+    padding: 10,
+  },
+  currentOrderText: {
+    fontSize: 16,
+    fontWeight: 700,
+    color: "#f97316",
+  },
+  progressContainer: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 5,
+  },
+  progressBar: {
+    width: "90%",
+    height: 10,
+    backgroundColor: "#e0e0de",
+    borderRadius: 50,
+    overflow: "hidden",
+  },
+  progress: {
+    height: 10,
+    backgroundColor: "#ff9f61",
+  },
+  progressText: {
+    marginTop: 5,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  currentOrderMap: {
+    width: "100%",
+    height: 300,
+    borderBottomColor: "#f97316",
+    borderBottomWidth: 0.2,
+  },
+  currentOrderFooter: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
+  callBtn: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+    margin: 5,
+    padding: 8,
+    borderRadius: 15,
+    width: 200,
+    backgroundColor: "#f97316",
+    elevation: 4,
+  },
+  previousOrderHistoryBtn: {
+    marginVertical: 8,
+    padding: 10,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    borderColor: "#f97316",
+    elevation: 3,
+  },
+});
