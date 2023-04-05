@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-StyleSheet.create({
+export default StyleSheet.create({
   totalCon: {
     flexDirection: "row",
     paddingHorizontal: 30,

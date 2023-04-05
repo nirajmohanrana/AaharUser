@@ -1,16 +1,11 @@
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { View, FlatList, Text, TouchableOpacity } from "react-native";
 
 import { useSelector } from "react-redux";
 import BasketItem from "./BasketItem";
 import { useEffect, useState } from "react";
 
 import { Ionicons, Feather } from "@expo/vector-icons";
+import styles from "./styles";
 
 function Basket({ navigation }) {
   const [totalPrice, setTotalPrice] = useState(0);
