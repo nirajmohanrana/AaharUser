@@ -9,6 +9,7 @@ import Profile from "../screens/Profile/Profile";
 import BasketBadge from "../components/BasketBadge";
 import Basket from "../screens/Basket/Basket";
 import { useState } from "react";
+import Login from "../screens/Login/Login";
 
 function TabNavigators() {
   const [bottomOffset, setBottomOffset] = useState(10);
@@ -17,7 +18,7 @@ function TabNavigators() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color }) => {
           let iconName, size, style;
@@ -70,6 +71,7 @@ function TabNavigators() {
       })}
     >
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Login" component={Login} />
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen
         name="Basket"
