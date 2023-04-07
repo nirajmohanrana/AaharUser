@@ -1,10 +1,30 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../../firebaseConfig";
 
 const AuthScreen = ({ navigation }) => {
-  function onPress() {
-    navigation.navigate("AddDetails");
+  function handleGoogleSignIn() {
+    console.log("first");
+    signInWithPopup(auth, provider).then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token);
+      const user = result.user;
+      console.log(user);
+    });
+    // .catch((error) => {
+    //   // Handle Errors here.
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   const email = error.customData.email;
+    //   // The AuthCredential type that was used.
+    //   const credential = GoogleAuthProvider.credentialFromError(error);
+    //   // ...
+    // });
   }
 
   return (
@@ -12,7 +32,7 @@ const AuthScreen = ({ navigation }) => {
       <TouchableOpacity
         style={[styles.btnCon, { backgroundColor: "#fff" }]}
         onPress={() => {
-          onPress();
+          handleGoogleSignIn();
         }}
       >
         <AntDesign name="google" size={20} color="#000" />
@@ -23,7 +43,7 @@ const AuthScreen = ({ navigation }) => {
       <TouchableOpacity
         style={[styles.btnCon, { backgroundColor: "#4267B2" }]}
         onPress={() => {
-          onPress();
+          handleFacebookSignIn();
         }}
       >
         <AntDesign name="facebook-square" size={20} color="#fff" />

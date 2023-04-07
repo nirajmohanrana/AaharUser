@@ -11,6 +11,7 @@ import MapView from "react-native-maps";
 import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import styles from "./styles";
+import MapViewDirections from "react-native-maps-directions";
 
 function Profile() {
   const [animation, setAnimation] = useState(new Animated.Value(0));
@@ -29,6 +30,12 @@ function Profile() {
     inputRange: [0, 1],
     outputRange: ["0%", "100%"],
   });
+
+  const origin = { latitude: 19.464936, longitude: 72.8039986 };
+  const destination = { latitude: 19.4453727, longitude: 72.8052631 };
+  const waypoint = { latitude: 19.4645314, longitude: 72.8061443 };
+
+  const GOOGLE_MAPS_APIKEY = "AIzaSyBqXPoD7q3vpxLtnMpclh4u0GLXcUjmlvw";
 
   return (
     <View>
@@ -83,7 +90,15 @@ function Profile() {
                 latitudeDelta: 0.003,
                 longitudeDelta: 0.003,
               }}
-            ></MapView>
+            >
+              {/* <MapViewDirections
+                origin={origin}
+                destination={destination}
+                // apikey={GOOGLE_MAPS_APIKEY}
+                strokeWidth={3}
+                strokeColor="#f97316"
+              /> */}
+            </MapView>
           </View>
 
           {/* CURRENT ORDER FOOTER */}
