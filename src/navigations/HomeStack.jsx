@@ -3,8 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RasoiDetails from "../screens/RasoiDetails/RasoiDetails";
 import RasoiList from "../screens/RasoiList/RasoiList";
 import Basket from "../screens/Basket/Basket";
+import Login from "../screens/Login/Login";
 
-const HomeStack = (route) => {
+const HomeStack = () => {
   const Stack = createNativeStackNavigator();
 
   return (
