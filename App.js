@@ -1,4 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 import { Provider } from "react-redux";
 import store from "./src/store/store";
@@ -6,13 +7,31 @@ import store from "./src/store/store";
 import TabNavigators from "./src/navigations/TabNavigators";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import Login from "./src/screens/Login/Login";
+
+import auth from "@react-native-firebase/auth";
+
 import "expo-dev-client";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const user = false;
+  const [user, setUser] = useState(null);
+
+  function onAuthStateChanged(user) {
+    if (user) {
+      setUser(user);
+    } else {
+      setUser(null);
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+
   return (
     <Provider store={store}>
       <KeyboardAvoidingView
