@@ -11,6 +11,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import auth from "@react-native-firebase/auth";
+import { Alert } from "react-native";
 
 const AuthScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -30,6 +31,11 @@ const AuthScreen = ({ navigation }) => {
 
   const handleSubmitPhoneNumber = async () => {
     setIsLoading(true);
+    if (!/^\+\d+$/g.test(phoneNumber)) {
+      Alert.alert("Please enter a valid phone number with country code.");
+      setIsLoading(false);
+      return;
+    }
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
     setIsLoading(false);
@@ -46,7 +52,6 @@ const AuthScreen = ({ navigation }) => {
       setIsLoading(true);
       await confirm.confirm(otp);
       navigation.navigate("AddDetails");
-      console.log("otp confirmed");
     } catch (error) {
       console.log(error);
       setIsLoading(true);
@@ -55,6 +60,7 @@ const AuthScreen = ({ navigation }) => {
         fontWeight: 800,
         color: "#f00",
       });
+      setIsLoading(false);
     }
   };
 

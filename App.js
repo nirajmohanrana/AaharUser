@@ -17,19 +17,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const [user, setUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
+  const [currentUser, setCurrentUser] = useState();
 
   function onAuthStateChanged(user) {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser(null);
-    }
+    setCurrentUser(user);
+    if (initializing) setInitializing(false);
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
+    console.log("currentUser", currentUser);
+    return subscriber; // unsubscribe on unmount
   }, []);
 
   return (
@@ -41,7 +40,7 @@ export default function App() {
       >
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={user ? "Aahar" : "Login"}
+            initialRouteName={currentUser ? "Aahar" : "Login"}
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen name="Login" component={Login} />
