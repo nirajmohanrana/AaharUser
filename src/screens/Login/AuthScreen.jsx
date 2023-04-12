@@ -19,6 +19,9 @@ const AuthScreen = ({ navigation }) => {
   const [confirm, setConfirm] = useState(null);
   const [showOTPInput, setShowOTPInput] = useState(false);
 
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+
   const [prompt, setPrompt] = useState(
     "Please Provider Country\nlike +91 for India"
   );
@@ -86,6 +89,20 @@ const AuthScreen = ({ navigation }) => {
       {!showOTPInput && (
         <View style={styles.inputCon}>
           <TextInput
+            placeholder="Your Name"
+            keyboardType="default"
+            value={userName}
+            onChangeText={setUserName}
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Email"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.input}
+          />
+          <TextInput
             placeholder="Phone Number"
             keyboardType="phone-pad"
             value={phoneNumber}
@@ -107,7 +124,7 @@ const AuthScreen = ({ navigation }) => {
                 />
               </Animated.View>
             ) : (
-              <Text style={styles.submitBtnText}>Submit Number</Text>
+              <Text style={styles.submitBtnText}>Login</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -164,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputCon: {
-    width: "70%",
+    width: "75%",
   },
   input: {
     marginVertical: 10,
