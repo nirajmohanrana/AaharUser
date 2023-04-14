@@ -4,15 +4,17 @@ import { useEffect, useState } from "react";
 import { Provider } from "react-redux";
 import store from "./src/store/store";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigators from "./src/navigations/TabNavigators";
 import { KeyboardAvoidingView } from "react-native";
 import { Platform } from "react-native";
 
 import "expo-dev-client";
-
-import firebase from "@react-native-firebase/app";
+import Login from "./src/screens/Login/Login";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+
   return (
     <Provider store={store}>
       <KeyboardAvoidingView
@@ -21,7 +23,13 @@ export default function App() {
         style={{ flex: 1 }}
       >
         <NavigationContainer>
-          <TabNavigators />
+          <Stack.Navigator
+            initialRouteName="Main"
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Main" component={TabNavigators} />
+          </Stack.Navigator>
         </NavigationContainer>
       </KeyboardAvoidingView>
     </Provider>

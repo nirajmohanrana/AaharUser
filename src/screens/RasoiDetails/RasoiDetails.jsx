@@ -1,27 +1,44 @@
 import { View, FlatList, Text, Pressable, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from "../../../firebaseConfig";
-
 import RasoiHeader from "./RasoiHeader";
 import DishItem from "./DishItem";
+
+import firestore from "@react-native-firebase/firestore";
 
 function RasoiDetails({ route }) {
   const [food, setFood] = useState(null);
 
+  const foodRef = firestore().collection("food-items");
+
   useEffect(() => {
-    const unsubscribe = onSnapshot(
-      doc(db, "food-items", route.params.rasoi.id),
-      (doc) => {
-        const docData = doc.data();
-        setFood(docData.foods);
-      }
-    );
+    // console.log("RASOI ID", route.params.rasoi.rasoiId);
+
+    console.log(foodRef.get());
+
+    const unsubscribe = foodRef.onSnapshot({
+      error: (e) => console.error(e),
+      next: (querySnapshot) => {
+        querySnapshot.forEach((user) => {
+          // console.log(user.data());
+        });
+      },
+    });
 
     return () => {
       unsubscribe();
     };
+
+    // const unsubscribe = onSnapshot(
+    //   doc(db, "food-items", route.params.rasoi.id),
+    //   (doc) => {
+    //     const docData = doc.data();
+    //     setFood(docData.foods);
+    //   }
+    // );
+    // return () => {
+    //   unsubscribe();
+    // };
   }, [route.params.rasoi]);
 
   return (

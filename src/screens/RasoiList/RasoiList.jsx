@@ -1,28 +1,33 @@
 import { View, FlatList } from "react-native";
 
-import { collection, onSnapshot, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import { db } from "../../../firebaseConfig";
 import RasoiCard from "./RasoiCard";
+
+import firestore from "@react-native-firebase/firestore";
 
 function RasoiList({ navigation }) {
   const [rasoiUsers, setRasoiUsers] = useState(null);
 
+  const rasoiUserRef = firestore().collection("rasoi-users");
+
   useEffect(() => {
-    const q = query(collection(db, "rasoi-users"));
+    const unsubscribe = rasoiUserRef.onSnapshot({
+      error: (e) => console.error(e),
+      next: (querySnapshot) => {
+        const rasoiUsersTemp = [];
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const usersData = [];
+        querySnapshot.forEach((user) => {
+          rasoiUsersTemp.push(user.data());
+        });
 
-      querySnapshot.forEach((doc) => {
-        usersData.push({ id: doc.id, ...doc.data() });
-      });
-
-      setRasoiUsers(usersData);
+        setRasoiUsers(rasoiUsersTemp);
+      },
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (

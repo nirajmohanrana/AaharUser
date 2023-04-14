@@ -21,7 +21,12 @@
         "backgroundColor": "#ffffff"
       },
       "googleServicesFile": "./google-services.json",
-      "package": "com.yaari.Aahar"
+      "package": "com.yaari.Aahar",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBqXPoD7q3vpxLtnMpclh4u0GLXcUjmlvw"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
