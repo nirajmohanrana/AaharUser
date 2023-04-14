@@ -14,13 +14,12 @@ import auth from "@react-native-firebase/auth";
 import { Alert } from "react-native";
 
 const AuthScreen = ({ navigation }) => {
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOTP] = useState("");
   const [confirm, setConfirm] = useState(null);
   const [showOTPInput, setShowOTPInput] = useState(false);
-
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
 
   const [prompt, setPrompt] = useState(
     "Please Provider Country\nlike +91 for India"
@@ -53,8 +52,11 @@ const AuthScreen = ({ navigation }) => {
   const handleSubmitOTP = async () => {
     try {
       setIsLoading(true);
-      await confirm.confirm(otp);
-      navigation.navigate("AddDetails");
+      await confirm.confirm(otp).then(async () => {
+        await auth().currentUser.updateProfile({ displayName: userName });
+        await auth().currentUser.updateEmail(email);
+      });
+      navigation.navigate("Main");
     } catch (error) {
       console.log(error);
       setIsLoading(true);
