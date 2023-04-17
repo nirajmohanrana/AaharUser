@@ -9,37 +9,29 @@ import firestore from "@react-native-firebase/firestore";
 function RasoiDetails({ route }) {
   const [food, setFood] = useState(null);
 
-  const foodRef = firestore().collection("food-items");
+  const rasoiUserRef = firestore().collection("rasoi-users");
+  const foodItemsRef = rasoiUserRef
+    .doc(route.params.rasoi.rasoiId)
+    .collection("food-items");
 
   useEffect(() => {
-    // console.log("RASOI ID", route.params.rasoi.rasoiId);
-
-    console.log(foodRef.get());
-
-    const unsubscribe = foodRef.onSnapshot({
+    const unsubscribe = foodItemsRef.onSnapshot({
       error: (e) => console.error(e),
       next: (querySnapshot) => {
-        querySnapshot.forEach((user) => {
-          // console.log(user.data());
+        const foodItemsTemp = [];
+
+        querySnapshot.forEach((food) => {
+          foodItemsTemp.push(food.data());
         });
+
+        console.log(foodItemsTemp);
+        setFood(foodItemsTemp);
       },
     });
-
     return () => {
       unsubscribe();
     };
-
-    // const unsubscribe = onSnapshot(
-    //   doc(db, "food-items", route.params.rasoi.id),
-    //   (doc) => {
-    //     const docData = doc.data();
-    //     setFood(docData.foods);
-    //   }
-    // );
-    // return () => {
-    //   unsubscribe();
-    // };
-  }, [route.params.rasoi]);
+  }, []);
 
   return (
     <View>

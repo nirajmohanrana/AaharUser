@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
-    marginRight: 4,
+    marginRight: 10,
     borderRadius: 10,
+    backgroundColor: "#fff",
+    resizeMode: "contain",
   },
   row: {
     position: "absolute",

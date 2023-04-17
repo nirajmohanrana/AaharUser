@@ -14,12 +14,29 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     elevation: 5,
   },
-  profileImage: {
-    width: 85,
-    height: 85,
+  avatar: {
+    backgroundColor: "#f97316",
+    width: 80,
+    height: 80,
+    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 999,
+    elevation: 4,
   },
+  avatarText: {
+    fontWeight: 900,
+    fontSize: 30,
+    color: "#fff",
+    elevation: 4,
+  },
+  // profileImage: {
+  //   width: 85,
+  //   height: 85,
+  // },
   profileDetails: {
     width: "60%",
+    marginBottom: 15,
   },
   currentOrder: {
     borderWidth: 0.5,

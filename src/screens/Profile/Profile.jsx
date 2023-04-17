@@ -12,10 +12,26 @@ import { Feather } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import styles from "./styles";
 
+import auth from "@react-native-firebase/auth";
+
 function Profile() {
   const [animation, setAnimation] = useState(new Animated.Value(0));
 
   const progress = 0.57;
+
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(null);
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    console.log(user);
+    return subscriber;
+  }, []);
 
   useEffect(() => {
     Animated.timing(animation, {
@@ -40,27 +56,31 @@ function Profile() {
     <View>
       {/* PROFILE HEADER */}
       <View style={styles.profileHeader}>
-        <Image
-          source={{
-            uri: "https://pixlok.com/wp-content/uploads/2022/02/Profile-Icon-SVG-09856789.png",
-          }}
-          style={styles.profileImage}
-        />
-        <View style={styles.profileDetails}>
-          <Text style={{ fontSize: 18, fontWeight: 700 }}>Niraj Rana</Text>
-          <Text style={{ fontSize: 12, fontWeight: 400 }}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit facere
-            adipisci sequi blanditiis tempore.
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>
+            {user
+              ? user.displayName
+                  .split(" ")
+                  .map((word) => word.charAt(0))
+                  .join("")
+                  .toUpperCase()
+              : "आहार"}
           </Text>
         </View>
-        <TouchableOpacity>
+        <View style={styles.profileDetails}>
+          <Text style={{ fontSize: 22, fontWeight: 700 }}>
+            {user?.displayName}
+          </Text>
+          <Text style={{ fontSize: 16, fontWeight: 400 }}>{user?.email}</Text>
+        </View>
+        {/* <TouchableOpacity>
           <Feather
             name="edit-3"
             size={18}
             color="#f97316"
             style={{ marginTop: 16 }}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView style={{ padding: 10 }}>

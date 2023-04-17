@@ -38,7 +38,7 @@ function RasoiList({ navigation }) {
         renderItem={({ item }) => (
           <RasoiCard rasoi={item} navigation={navigation} />
         )}
-        keyExtractor={(rasoi) => rasoi.id}
+        keyExtractor={(rasoi) => rasoi.rasoiId}
         ListFooterComponent={() => <View style={{ height: 100 }} />}
       />
     </View>

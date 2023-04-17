@@ -12,8 +12,31 @@ import { Platform } from "react-native";
 import "expo-dev-client";
 import Login from "./src/screens/Login/Login";
 
+import auth from "@react-native-firebase/auth";
+
 export default function App() {
   const Stack = createNativeStackNavigator();
+
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(null);
+  const [initRoute, setInitRoute] = useState("Login");
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+
+    if (user) {
+      setInitRoute("Main");
+    } else {
+      setInitRoute("Login");
+    }
+
+    return subscriber;
+  }, [user]);
 
   return (
     <Provider store={store}>
@@ -24,7 +47,7 @@ export default function App() {
       >
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Main"
+            initialRouteName={initRoute}
             screenOptions={{ headerShown: false }}
           >
             <Stack.Screen name="Login" component={Login} />
