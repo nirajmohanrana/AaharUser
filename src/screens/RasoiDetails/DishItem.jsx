@@ -6,7 +6,7 @@ import { StyleSheet, Text, Pressable, View, Image } from "react-native";
 import { addDish, removeDish } from "../../store/slices/basketSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-function DishItem({ dish, rasoiName }) {
+function DishItem({ dish, rasoiName, rasoiId }) {
   const [dishCount, setDishCount] = useState(0);
 
   const dispatch = useDispatch();
@@ -21,6 +21,7 @@ function DishItem({ dish, rasoiName }) {
       dishDesc: dish.dishDesc,
       dishPrice: dish.dishPrice,
       rasoiName: rasoiName,
+      rasoiId: rasoiId,
       dishCounts: dishCount + 1,
     };
 

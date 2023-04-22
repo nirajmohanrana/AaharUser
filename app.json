@@ -38,7 +38,11 @@
       "plugin": [
         "@react-native-firebase/app",
         "@react-native-firebase/auth",
-        "@react-native-firebase/firestore"
+        "@react-native-firebase/firestore",
+        "react-native-razorpay",
+        "react-native-geolocation-service",
+        "react-native-google-places-autocomplete",
+        "@notifee/react-native"
       ]
     }
   }

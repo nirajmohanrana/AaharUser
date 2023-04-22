@@ -39,7 +39,11 @@ function RasoiDetails({ route }) {
         ListHeaderComponent={() => <RasoiHeader rasoi={route.params.rasoi} />}
         data={food}
         renderItem={({ item }) => (
-          <DishItem dish={item} rasoiName={route.params.rasoi.rasoiName} />
+          <DishItem
+            dish={item}
+            rasoiName={route.params.rasoi.rasoiName}
+            rasoiId={route.params.rasoi.rasoiId}
+          />
         )}
         ListFooterComponent={() => <View style={{ height: 100 }} />}
         keyExtractor={(food) => food.foodId}

@@ -71,7 +71,10 @@ function Profile() {
           <Text style={{ fontSize: 22, fontWeight: 700 }}>
             {user?.displayName}
           </Text>
-          <Text style={{ fontSize: 16, fontWeight: 400 }}>{user?.email}</Text>
+          <Text style={{ fontSize: 14, fontWeight: 400 }}>
+            {user?.phoneNumber}
+          </Text>
+          <Text style={{ fontSize: 14, fontWeight: 400 }}>{user?.email}</Text>
         </View>
         {/* <TouchableOpacity>
           <Feather
