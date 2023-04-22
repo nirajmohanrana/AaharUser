@@ -13,6 +13,7 @@ const HomeStack = () => {
       <Stack.Screen name="Rasoi Ghar" component={RasoiList} />
       <Stack.Screen name="Rasoi Details" component={RasoiDetails} />
       <Stack.Screen name="Basket" component={Basket} />
+      {/* <Stack.Screen name="PreviousOrders" component={PreviousOrders} /> */}
     </Stack.Navigator>
   );
 };

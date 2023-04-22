@@ -13,24 +13,32 @@ import { useEffect, useState } from "react";
 import styles from "./styles";
 
 import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import CurrentOrderModal from "./CurrentOrderModal";
 
 function Profile() {
   const [animation, setAnimation] = useState(new Animated.Value(0));
+  const [orders, setOrders] = useState(null);
 
   const progress = 0.57;
 
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
 
   function onAuthStateChanged(user) {
     setUser(user);
+    setUserId(user.uid);
     if (initializing) setInitializing(false);
   }
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    console.log(user);
-    return subscriber;
+
+    return () => {
+      subscriber();
+    };
   }, []);
 
   useEffect(() => {
@@ -46,11 +54,49 @@ function Profile() {
     outputRange: ["0%", "100%"],
   });
 
-  const origin = { latitude: 19.464936, longitude: 72.8039986 };
-  const destination = { latitude: 19.4453727, longitude: 72.8052631 };
-  const waypoint = { latitude: 19.4645314, longitude: 72.8061443 };
-
   // const GOOGLE_MAPS_APIKEY = "AIzaSyBqXPoD7q3vpxLtnMpclh4u0GLXcUjmlvw";
+
+  useEffect(() => {
+    const OrdersRef = firestore().collection("orders");
+
+    const unsubscribe = OrdersRef.onSnapshot({
+      error: (e) => console.error(e),
+      next: (querySnapshot) => {
+        const ordersTemp = [];
+
+        querySnapshot.forEach((user) => {
+          ordersTemp.push(user.data());
+        });
+
+        const ordersTemp2 = [];
+
+        ordersTemp.forEach((order) => {
+          if (order.userId === userId) {
+            ordersTemp2.push(order);
+          }
+        });
+
+        console.log("orderTemp2", ordersTemp2);
+        setUserLocation(ordersTemp2[0].userLocation);
+
+        setOrders(ordersTemp2);
+      },
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [userId]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   return (
     <View>
@@ -91,7 +137,11 @@ function Profile() {
         <View style={styles.currentOrder}>
           {/* CURRENT ORDER HEADER */}
           <View style={styles.currentOrderHeader}>
-            <Text style={styles.currentOrderText}>Current Order Progress</Text>
+            <TouchableOpacity onPress={handleOpenModal}>
+              <Text style={styles.currentOrderText}>
+                Current Order Progress
+              </Text>
+            </TouchableOpacity>
             <Text style={{ fontWeight: 300 }}>
               Progress: Currently at Rasoi
             </Text>
@@ -107,8 +157,8 @@ function Profile() {
             <MapView
               style={{ width: "100%", height: "100%" }}
               initialRegion={{
-                latitude: 19.445727,
-                longitude: 72.80533,
+                latitude: userLocation ? userLocation.lat : 19.445727,
+                longitude: userLocation ? userLocation.long : 72.80533,
                 latitudeDelta: 0.003,
                 longitudeDelta: 0.003,
               }}
@@ -142,6 +192,11 @@ function Profile() {
           </Text>
         </TouchableOpacity>
       </ScrollView>
+      <CurrentOrderModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        orders={orders}
+      />
     </View>
   );
 }

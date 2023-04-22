@@ -4,11 +4,12 @@ export default StyleSheet.create({
   totalCon: {
     flexDirection: "row",
     paddingHorizontal: 30,
-    paddingBottom: 5,
+    paddingVertical: 10,
     marginVertical: 10,
     justifyContent: "space-between",
     alignItems: "baseline",
     borderBottomWidth: 0.5,
+    borderTopWidth: 0.5,
   },
   bottomBtns: {
     flexDirection: "row",
@@ -41,5 +42,35 @@ export default StyleSheet.create({
   },
   emptySubitle: {
     fontWeight: 300,
+  },
+  optionButton: {
+    width: "45%",
+    padding: 10,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "#ccc",
+    backgroundColor: "#fff",
+  },
+  selectedOptionButton: {
+    backgroundColor: "#f97316",
+  },
+  optionButtonText: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#000",
+  },
+  selectedOptionButtonText: {
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  input: {
+    marginVertical: 10,
+    backgroundColor: "#fff",
+    height: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    fontSize: 16,
+    borderRadius: 15,
   },
 });
