@@ -19,8 +19,8 @@ import CurrentOrderModal from "./CurrentOrderModal";
 function Profile() {
   const [animation, setAnimation] = useState(new Animated.Value(0));
   const [orders, setOrders] = useState(null);
-
-  const progress = 0.57;
+  const [progress, setProgress] = useState(0);
+  const [progressStatusText, setProgressStatusText] = useState("");
 
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
@@ -78,13 +78,49 @@ function Profile() {
 
         console.log("orderTemp2", ordersTemp2);
         setUserLocation(ordersTemp2[0].userLocation);
-
+        console.log("ordersTemp2[0].orderStatus", ordersTemp2[0].orderStatus);
+        const orderStatusProgress = ordersTemp2[0].orderStatus * 0.2;
+        setProgress(orderStatusProgress);
         setOrders(ordersTemp2);
       },
     });
 
+    function progressText() {
+      switch (progress) {
+        case 0.0:
+          setProgressStatusText("Order Placed");
+          break;
+
+        case 0.2:
+          setProgressStatusText("Order Confirmed By Rasoi");
+          break;
+
+        case 0.4:
+          setProgressStatusText("Delivery Proffesional Accepted Your Request");
+          break;
+
+        case 0.6:
+          setProgressStatusText("Order Received By Delivery Professional");
+          break;
+
+        case 0.8:
+          setProgressStatusText(
+            "Order Received Confirmation By Delivery Professional"
+          );
+          break;
+
+        case 1:
+          setProgressStatusText("Order Delivered");
+          break;
+
+        default:
+          break;
+      }
+    }
+
     return () => {
       unsubscribe();
+      progressText();
     };
   }, [userId]);
 
@@ -143,7 +179,7 @@ function Profile() {
               </Text>
             </TouchableOpacity>
             <Text style={{ fontWeight: 300 }}>
-              Progress: Currently at Rasoi
+              Progress: <Text>{progressStatusText}</Text>
             </Text>
             <View style={styles.progressContainer}>
               <View style={styles.progressBar}>
