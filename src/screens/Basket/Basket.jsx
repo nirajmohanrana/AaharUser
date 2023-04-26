@@ -20,7 +20,8 @@ import { TextInput } from "react-native";
 function Basket({ navigation }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const [rasoiId, setRasoiId] = useState(0);
+  const [RasoiId, setRasoiId] = useState("");
+  const [RasoiName, setRasoiName] = useState("");
 
   const [selectedOption, setSelectedOption] = useState("Cash on delivery");
   const [latLong, setLatLong] = useState(null);
@@ -41,13 +42,18 @@ function Basket({ navigation }) {
   useEffect(() => {
     let newTotal = 0;
     let rasoiIds = [];
+    let rasoiNames = [];
     basketItems.forEach((basketItem) => {
       rasoiIds.push(basketItem.rasoiId);
+      rasoiNames.push(basketItem.rasoiName);
       newTotal += basketItem.dishCounts * basketItem.dishPrice;
     });
 
     setTotalPrice(newTotal);
+
     setRasoiId(rasoiIds[0]);
+
+    setRasoiName(rasoiNames[0]);
   }, [basketItems]);
 
   const handleOptionSelect = (option) => {
@@ -64,7 +70,6 @@ function Basket({ navigation }) {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
 
-    console.log(user);
     setUser(user);
 
     return subscriber;
@@ -81,7 +86,9 @@ function Basket({ navigation }) {
       ordersRef
         .add({
           userId: user.uid,
-          rasoiId: rasoiId,
+          userName: user.displayName,
+          rasoiId: RasoiId,
+          rasoiName: RasoiName,
           basketItems: basketItems,
           userLocation: latLong,
           userFormattedAddress: addressLine1 + " " + formattedAddress,
