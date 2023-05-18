@@ -12,7 +12,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 //   authDomain: "aahar-109e8.firebaseapp.com",
 //   projectId: "aahar-109e8",
 //   storageBucket: "aahar-109e8.appspot.com",
-//   messagingSenderId: "889513020046",
+//   messagingSenderId: "",
 //   appId: "",
 //   measurementId: "",
 // };
