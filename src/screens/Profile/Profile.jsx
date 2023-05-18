@@ -54,8 +54,6 @@ function Profile() {
     outputRange: ["0%", "100%"],
   });
 
-  // const GOOGLE_MAPS_APIKEY = "AIzaSyBqXPoD7q3vpxLtnMpclh4u0GLXcUjmlvw";
-
   useEffect(() => {
     const OrdersRef = firestore().collection("orders");
 
