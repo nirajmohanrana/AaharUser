@@ -37,8 +37,6 @@ function Basket({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyBqXPoD7q3vpxLtnMpclh4u0GLXcUjmlvw";
-
   useEffect(() => {
     let newTotal = 0;
     let rasoiIds = [];
